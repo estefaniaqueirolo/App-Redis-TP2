@@ -1,0 +1,10 @@
+
+.inputPadding{
+    padding: 10px 0;
+}
+
+input::placeholder{
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.918);
+  padding-top: -10px;
+}

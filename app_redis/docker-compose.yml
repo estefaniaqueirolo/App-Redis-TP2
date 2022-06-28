@@ -1,0 +1,34 @@
+version: "3"
+services:
+  backend:
+    build: ./backend
+    container_name: 'app_node_back'
+    command: sh -c 'npm install; npm start'
+    ports:
+      - '3002:3002'
+    volumes:
+      - ./backend:/backend
+    depends_on:
+      - "db-app-node"
+
+  db-app-node:
+    container_name: 'app_node_db'
+    image: redis
+    ports:
+      - "6378:6379"
+
+  frontend:
+    build: ./frontend
+    container_name: 'app_node_front'
+    command: sh -c 'npm install; npm start'
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./frontend:/frontend
+    depends_on:
+      - "backend"
+    stdin_open: true
+    tty: true
+    environment:
+     - NODE_ENV=development
+     - CHOKIDAR_USEPOLLING=true
